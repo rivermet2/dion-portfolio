@@ -1,0 +1,33 @@
+@keyframes scrollWheel {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(4px);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+.scroll-wheel {
+  animation: scrollWheel 1.5s infinite;
+}
+
+.scroll-indicator {
+  cursor: pointer;
+  color: rgb(255 255 255 / 0.6);
+
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms ease;
+}
+
+.scroll-indicator:hover {
+  color: rgb(255 255 255);
+  transform: scale(1.04);
+}
