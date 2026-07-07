@@ -1,11 +1,12 @@
 import { useState } from "react";
+import type { AboutCard } from "../../data/aboutCards";
 import AboutContent from "./AboutContent";
 import AboutCards from "./AboutCards";
-import AboutModal from "./AboutModal";
 import Reveal from "../ui/Reveal";
+import { LayoutGroup } from "motion/react";
 
 function About() {
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const [selectedCard, setSelectedCard] = useState<AboutCard | null>(null);
 
   return (
     <section id="about" className="relative min-h-screen px-6 mt-32">
@@ -14,17 +15,14 @@ function About() {
           <AboutContent />
         </Reveal>
 
-        <Reveal delay={250}>
-          <AboutCards
-            selectedCard={selectedCard}
-            setSelectedCard={setSelectedCard}
-          />
-        </Reveal>
-
-        <AboutModal
-          selectedCard={selectedCard}
-          onClose={() => setSelectedCard(null)}
-        />
+        <LayoutGroup>
+          <Reveal delay={250}>
+            <AboutCards
+              selectedCard={selectedCard}
+              setSelectedCard={setSelectedCard}
+            />
+          </Reveal>
+        </LayoutGroup>
       </div>
     </section>
   );
