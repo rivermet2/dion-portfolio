@@ -14,30 +14,38 @@ function AboutCard({ card, selectedCard, setSelectedCard }: AboutCardProps) {
 
   return (
     <Reveal delay={card.delay}>
-      <motion.div
-        layoutId={card.id}
-        onClick={() => setSelectedCard(card)}
-        data-selected={selectedCard?.id === card.id}
-        whileHover={{
-          y: -8,
-          scale: 1.02,
-        }}
-        animate={{
-          opacity: selectedCard && selectedCard.id !== card.id ? 0.35 : 1,
+      {selectedCard?.id === card.id ? (
+        <div
+          aria-hidden="true"
+          className="invisible h-full rounded-3xl border border-transparent p-8"
+        />
+      ) : (
+        <motion.div
+          layout
+          layoutId={card.id}
+          onClick={() => setSelectedCard(card)}
+          data-selected={selectedCard?.id === card.id}
+          style={{
+            pointerEvents: selectedCard?.id === card.id ? "none" : "auto",
+          }}
+          whileHover={{
+            y: -8,
+            scale: 1.02,
+          }}
+          animate={{
+            opacity: selectedCard ? 0.35 : 1,
 
-          filter:
-            selectedCard && selectedCard.id !== card.id
-              ? "blur(3px)"
-              : "blur(0px)",
+            filter: selectedCard ? "blur(3px)" : "blur(0px)",
 
-          scale: selectedCard?.id === card.id ? 1.04 : 1,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 24,
-        }}
-        className={`
+            scale: 1,
+            y: 0,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 260,
+            damping: 24,
+          }}
+          className={`
   group
   cursor-pointer
   relative
@@ -58,10 +66,16 @@ function AboutCard({ card, selectedCard, setSelectedCard }: AboutCardProps) {
   hover:bg-white/[0.05]
   hover:shadow-[0_15px_40px_rgba(59,130,246,0.15)]
 
+  ${
+    selectedCard?.id === card.id
+      ? "shadow-[0_25px_60px_rgba(59,130,246,0.20)] border-blue-500/40"
+      : ""
+  }
+
 `}
-      >
-        <div
-          className="
+        >
+          <div
+            className="
     absolute
     inset-0
 
@@ -74,14 +88,14 @@ function AboutCard({ card, selectedCard, setSelectedCard }: AboutCardProps) {
 
     pointer-events-none
   "
-          style={{
-            background:
-              "radial-gradient(circle at top, rgba(59,130,246,0.18) 0%, rgba(59,130,246,0.08) 30%, transparent 70%)",
-          }}
-        />
-        <Icon
-          size={30}
-          className="
+            style={{
+              background:
+                "radial-gradient(circle at top, rgba(59,130,246,0.18) 0%, rgba(59,130,246,0.08) 30%, transparent 70%)",
+            }}
+          />
+          <Icon
+            size={30}
+            className="
     text-blue-400
 
     transition-all
@@ -90,9 +104,9 @@ function AboutCard({ card, selectedCard, setSelectedCard }: AboutCardProps) {
     group-hover:scale-125
     group-hover:-translate-y-1
   "
-        />
-        <div
-          className="
+          />
+          <div
+            className="
     mt-6
 
     text-4xl
@@ -105,12 +119,12 @@ function AboutCard({ card, selectedCard, setSelectedCard }: AboutCardProps) {
     group-hover:-translate-y-1
     group-hover:text-blue-100
   "
-        >
-          {card.value}
-        </div>
+          >
+            {card.value}
+          </div>
 
-        <div
-          className="
+          <div
+            className="
     mt-4
     mb-4
 
@@ -125,14 +139,15 @@ function AboutCard({ card, selectedCard, setSelectedCard }: AboutCardProps) {
     group-hover:w-30
     group-hover:bg-blue-400/70
   "
-        />
+          />
 
-        <div className="mt-2 text-lg font-semibold text-white">
-          {card.title}
-        </div>
+          <div className="mt-2 text-lg font-semibold text-white">
+            {card.title}
+          </div>
 
-        <div className="mt-1 text-sm text-gray-400">{card.subtitle}</div>
-      </motion.div>
+          <div className="mt-1 text-sm text-gray-400">{card.subtitle}</div>
+        </motion.div>
+      )}
     </Reveal>
   );
 }

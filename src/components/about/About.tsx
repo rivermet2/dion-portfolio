@@ -3,7 +3,8 @@ import type { AboutCard } from "../../data/aboutCards";
 import AboutContent from "./AboutContent";
 import AboutCards from "./AboutCards";
 import Reveal from "../ui/Reveal";
-import { LayoutGroup } from "motion/react";
+import { AnimatePresence, LayoutGroup } from "motion/react";
+import ExpandedAboutCard from "./ExpandedAboutCard";
 
 function About() {
   const [selectedCard, setSelectedCard] = useState<AboutCard | null>(null);
@@ -22,6 +23,15 @@ function About() {
               setSelectedCard={setSelectedCard}
             />
           </Reveal>
+
+          <AnimatePresence>
+            {selectedCard && (
+              <ExpandedAboutCard
+                card={selectedCard}
+                onClose={() => setSelectedCard(null)}
+              />
+            )}
+          </AnimatePresence>
         </LayoutGroup>
       </div>
     </section>
