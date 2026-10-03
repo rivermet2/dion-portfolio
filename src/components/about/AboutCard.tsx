@@ -1,154 +1,202 @@
-import type { Dispatch, SetStateAction } from "react";
 import { motion } from "motion/react";
-import Reveal from "../ui/Reveal";
+import { ArrowUpRight } from "lucide-react";
 import type { AboutCard as AboutCardType } from "../../data/aboutCards";
 
-type AboutCardProps = {
+interface AboutCardProps {
   card: AboutCardType;
   selectedCard: AboutCardType | null;
-  setSelectedCard: Dispatch<SetStateAction<AboutCardType | null>>;
-};
+  setSelectedCard: (card: AboutCardType) => void;
+}
 
 function AboutCard({ card, selectedCard, setSelectedCard }: AboutCardProps) {
   const Icon = card.icon;
+  const isSelected = selectedCard?.id === card.id;
 
   return (
-    <Reveal delay={card.delay}>
-      {selectedCard?.id === card.id ? (
+    <motion.button
+      type="button"
+      layoutId={`about-card-${card.id}`}
+      onClick={() => setSelectedCard(card)}
+      whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.25 }}
+      className={`
+        group
+        relative
+        w-full
+        overflow-hidden
+        rounded-3xl
+        border
+        p-6
+        text-left
+        transition-colors
+        duration-300
+        ${
+          isSelected
+            ? "border-blue-400/40 bg-blue-500/[0.06]"
+            : "border-white/10 bg-white/[0.025] hover:border-blue-400/25 hover:bg-white/[0.04]"
+        }
+      `}
+    >
+      {/* Background glow */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-16
+          -top-16
+          h-40
+          w-40
+          rounded-full
+          bg-blue-500/[0.06]
+          blur-3xl
+          transition-all
+          duration-500
+          group-hover:bg-blue-500/[0.1]
+        "
+      />
+
+      <div className="relative">
+        {/* Icon */}
         <div
-          aria-hidden="true"
-          className="invisible h-full rounded-3xl border border-transparent p-8"
-        />
-      ) : (
-        <motion.div
-          layout
-          layoutId={card.id}
-          onClick={() => setSelectedCard(card)}
-          data-selected={selectedCard?.id === card.id}
-          style={{
-            pointerEvents: selectedCard?.id === card.id ? "none" : "auto",
-          }}
-          whileHover={{
-            y: -8,
-            scale: 1.02,
-          }}
-          animate={{
-            opacity: selectedCard ? 0.35 : 1,
-
-            filter: selectedCard ? "blur(3px)" : "blur(0px)",
-
-            scale: 1,
-            y: 0,
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 260,
-            damping: 24,
-          }}
-          className={`
-  group
-  cursor-pointer
-  relative
-  overflow-hidden
-
-  rounded-3xl
-
-  border border-white/10
-
-  bg-white/[0.03]
-
-  p-8
-
-  transition-all
-  duration-500
-
-  hover:border-blue-500/40
-  hover:bg-white/[0.05]
-  hover:shadow-[0_15px_40px_rgba(59,130,246,0.15)]
-
-  ${
-    selectedCard?.id === card.id
-      ? "shadow-[0_25px_60px_rgba(59,130,246,0.20)] border-blue-500/40"
-      : ""
-  }
-
-`}
+          className="
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+            rounded-2xl
+            border
+            border-blue-400/20
+            bg-blue-500/[0.08]
+            text-blue-400
+            transition-all
+            duration-300
+            group-hover:border-blue-400/40
+            group-hover:bg-blue-500/[0.12]
+          "
         >
-          <div
-            className="
-    absolute
-    inset-0
+          <Icon size={22} />
+        </div>
 
-    opacity-0
-
-    transition-opacity
-    duration-500
-
-    group-hover:opacity-100
-
-    pointer-events-none
-  "
-            style={{
-              background:
-                "radial-gradient(circle at top, rgba(59,130,246,0.18) 0%, rgba(59,130,246,0.08) 30%, transparent 70%)",
-            }}
-          />
-          <Icon
-            size={30}
-            className="
-    text-blue-400
-
-    transition-all
-    duration-500
-
-    group-hover:scale-125
-    group-hover:-translate-y-1
-  "
-          />
-          <div
-            className="
-    mt-6
-
-    text-4xl
-    font-bold
-    text-white
-
-    transition-all
-    duration-500
-
-    group-hover:-translate-y-1
-    group-hover:text-blue-100
-  "
-          >
-            {card.value}
-          </div>
-
-          <div
-            className="
-    mt-4
-    mb-4
-
-    h-px
-    w-12
-
-    bg-blue-400/40
-
-    transition-all
-    duration-500
-
-    group-hover:w-30
-    group-hover:bg-blue-400/70
-  "
-          />
-
-          <div className="mt-2 text-lg font-semibold text-white">
+        {/* Title + value */}
+        <div className="mt-6">
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-blue-400">
             {card.title}
-          </div>
+          </p>
 
-          <div className="mt-1 text-sm text-gray-400">{card.subtitle}</div>
-        </motion.div>
-      )}
-    </Reveal>
+          <h3 className="mt-2 text-2xl font-bold tracking-tight text-white">
+            {card.value}
+          </h3>
+
+          <p className="mt-1 text-sm text-gray-400">{card.subtitle}</p>
+        </div>
+
+        {/* Description */}
+        <p className="mt-5 text-sm leading-6 text-gray-500">
+          {card.description}
+        </p>
+
+        {/* Card-specific preview information */}
+        {card.id === "projects" && "projects" in card && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {card.projects?.map((project) => (
+              <span
+                key={project.name}
+                className="
+                  rounded-full
+                  border
+                  border-white/10
+                  bg-black/20
+                  px-3
+                  py-1.5
+                  text-xs
+                  text-gray-400
+                "
+              >
+                {project.name}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {card.id === "technologies" && "skills" in card && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {card.skills?.slice(0, 6).map((skill) => (
+              <span
+                key={skill}
+                className="
+                  rounded-full
+                  border
+                  border-white/10
+                  bg-black/20
+                  px-3
+                  py-1.5
+                  text-xs
+                  text-gray-400
+                "
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {card.id === "experience" && "timeline" in card && (
+          <div className="mt-5 space-y-2">
+            {card.timeline?.map((item) => (
+              <div
+                key={item.company}
+                className="flex items-center justify-between gap-4 text-xs"
+              >
+                <span className="text-gray-300">{item.company}</span>
+                <span className="text-gray-500">{item.years}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {card.id === "education" && "education" in card && (
+          <div className="mt-5">
+            <p className="text-sm text-gray-300">
+              {card.education?.university}
+            </p>
+            <p className="mt-1 text-xs text-gray-500">
+              {card.education?.degree}
+            </p>
+          </div>
+        )}
+
+        {/* Explore indicator */}
+        <div
+          className="
+            mt-7
+            flex
+            items-center
+            justify-between
+            border-t
+            border-white/10
+            pt-5
+          "
+        >
+          <span className="text-xs font-medium uppercase tracking-[0.18em] text-gray-500 transition-colors duration-300 group-hover:text-gray-300">
+            Explore details
+          </span>
+
+          <ArrowUpRight
+            size={18}
+            className="
+              text-gray-500
+              transition-all
+              duration-300
+              group-hover:-translate-y-0.5
+              group-hover:translate-x-0.5
+              group-hover:text-blue-400
+            "
+          />
+        </div>
+      </div>
+    </motion.button>
   );
 }
 

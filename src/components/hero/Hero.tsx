@@ -13,15 +13,12 @@ function Hero() {
 
         <div
           className="fade-up"
-          style={{ animationDelay: "2600ms" } as React.CSSProperties}
+          style={{ animationDelay: "2000ms" } as React.CSSProperties}
         >
           <HeroButtons />
         </div>
       </div>
       <ScrollIndicator />
-      <div className="absolute bottom-0 left-0 w-full h-40 pointer-events-none">
-        <div className="h-full w-full bg-gradient-to-b from-transparent to-neutral-950" />
-      </div>
     </section>
   );
 }
