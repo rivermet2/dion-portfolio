@@ -4,18 +4,18 @@ function HeroContent() {
   return (
     <>
       <h1
-        className="fade-up text-6xl md:text-8xl font-bold text-white"
+        className="fade-up font-display text-6xl md:text-8xl font-bold text-white"
         style={{ animationDelay: "1000ms" } as React.CSSProperties}
       >
         Dion Hoti
       </h1>
 
-      <h2
+      <p
         className="fade-up mt-8 text-2xl md:text-3xl text-white/85"
         style={{ animationDelay: "1500ms" } as React.CSSProperties}
       >
         Software Engineer
-      </h2>
+      </p>
 
       <p
         className="fade-up mt-8 text-lg text-gray-400 max-w-3xl mx-auto leading-8"

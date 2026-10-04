@@ -15,7 +15,7 @@ export const projectData = [
     images: [
       {
         id: "map",
-        src: "/projects/kosovo-tourism/map.png",
+        src: "/projects/kosovo-tourism/map.webp",
         alt: "Kosovo Tourism application showing the interactive map",
         label: "Interactive Map",
       },
@@ -27,7 +27,7 @@ export const projectData = [
       },
       {
         id: "directions",
-        src: "/projects/kosovo-tourism/directions.png",
+        src: "/projects/kosovo-tourism/directions.webp",
         alt: "Kosovo Tourism application showing a route between locations",
         label: "Directions",
       },

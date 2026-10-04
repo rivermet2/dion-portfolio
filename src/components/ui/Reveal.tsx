@@ -19,7 +19,7 @@ function Reveal({ children, delay = 0 }: RevealProps) {
         setVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.05,
+        threshold: 0.15,
       },
     );
 

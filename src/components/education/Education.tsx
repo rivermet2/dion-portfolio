@@ -1,10 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GraduationCap, X, Maximize2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Reveal from "../ui/Reveal";
 
 function Education() {
   const [showImage, setShowImage] = useState(false);
+
+  useEffect(() => {
+    if (!showImage) return;
+
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+    };
+  }, [showImage]);
 
   return (
     <section
@@ -158,17 +173,18 @@ function Education() {
               >
                 <div className="relative overflow-hidden rounded-2xl">
                   <img
-                    src="/education/diploma.jpg"
+                    src="/education/diploma.webp"
                     alt="Bachelor's diploma celebration"
+                    loading="lazy"
                     className="
-                      h-[520px]
-                      w-full
-                      object-cover
-                      object-center
-                      transition-transform
-                      duration-700
-                      group-hover:scale-[1.03]
-                    "
+                            h-[520px]
+                            w-full
+                            object-cover
+                            object-center
+                            transition-transform
+                            duration-700
+                            group-hover:scale-[1.03]
+                           "
                   />
 
                   {/* Image overlay */}
@@ -257,7 +273,7 @@ function Education() {
               onClick={(event) => event.stopPropagation()}
             >
               <img
-                src="/education/diploma.jpg"
+                src="/education/diploma.webp"
                 alt="Bachelor's diploma celebration"
                 className="
                   max-h-[85vh]

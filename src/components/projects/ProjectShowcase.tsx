@@ -219,6 +219,7 @@ function ProjectShowcase({
                   <img
                     src={image.src}
                     alt=""
+                    loading="lazy"
                     className="h-20 w-full object-cover"
                   />
 
