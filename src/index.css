@@ -3,13 +3,7 @@
 @import "./styles/animations.css";
 
 html {
-  scroll-behavior: smooth;
-  overflow-x: clip;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  overflow-x: clip;
+  scroll-behavior: auto;
 }
 
 html,
@@ -23,8 +17,13 @@ body,
   box-sizing: border-box;
 }
 
+html,
 body {
   overflow-x: hidden;
+}
+
+body {
+  font-family: "Inter", sans-serif;
 }
 
 .hero-glow {
@@ -76,6 +75,7 @@ body {
 
   transform: translate(-50%, -50%);
 
+  pointer-events: none;
   background: radial-gradient(
     ellipse,
     rgba(59, 130, 246, 0.08) 0%,
