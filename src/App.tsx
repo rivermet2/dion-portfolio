@@ -6,10 +6,12 @@ import Experience from "./components/experience/Experience";
 import Education from "./components/education/Education";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/footer/Footer";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   return (
     <>
+      <Navbar />
       <main className="bg-neutral-950">
         <Hero />
         <About />

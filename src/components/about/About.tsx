@@ -12,7 +12,7 @@ function About() {
   return (
     <section
       id="about"
-      className="relative isolate mt-32 overflow-visible px-6 pb-30"
+      className="relative isolate mt-32 overflow-x-clip px-6 pb-30"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-20 lg:grid-cols-2">
         <div

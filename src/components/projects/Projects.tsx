@@ -1,8 +1,12 @@
+import { useState } from "react";
 import Reveal from "../ui/Reveal";
 import ProjectShowcase from "./ProjectShowcase";
 import ProjectInfo from "./ProjectInfo";
+import { projectData } from "./projectData";
 
 function Projects() {
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+
   return (
     <section
       id="projects"
@@ -10,14 +14,15 @@ function Projects() {
     >
       <div
         className="
-    pointer-events-none
-    absolute
-    -inset-y-40
-    inset-x-0
-    -z-10
-    bg-[radial-gradient(ellipse_70%_65%_at_75%_45%,rgba(37,99,235,0.12)_0%,rgba(37,99,235,0.06)_35%,rgba(37,99,235,0.02)_58%,transparent_75%)]
-  "
+          pointer-events-none
+          absolute
+          -inset-y-40
+          inset-x-0
+          -z-10
+          bg-[radial-gradient(ellipse_70%_65%_at_75%_45%,rgba(37,99,235,0.12)_0%,rgba(37,99,235,0.06)_35%,rgba(37,99,235,0.02)_58%,transparent_75%)]
+        "
       />
+
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="text-center">
@@ -37,11 +42,14 @@ function Projects() {
         </Reveal>
 
         <Reveal delay={150}>
-          <ProjectShowcase />
+          <ProjectShowcase
+            activeProjectIndex={activeProjectIndex}
+            setActiveProjectIndex={setActiveProjectIndex}
+          />
         </Reveal>
 
         <Reveal delay={300}>
-          <ProjectInfo />
+          <ProjectInfo project={projectData[activeProjectIndex]} />
         </Reveal>
       </div>
     </section>
