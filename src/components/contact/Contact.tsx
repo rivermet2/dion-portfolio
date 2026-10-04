@@ -33,7 +33,7 @@ function Contact() {
         className="
           pointer-events-none
           absolute
-          -inset-y-40
+          inset-y-0
           inset-x-0
           -z-10
           bg-[radial-gradient(ellipse_70%_65%_at_50%_45%,rgba(37,99,235,0.12)_0%,rgba(37,99,235,0.06)_35%,rgba(37,99,235,0.02)_58%,transparent_75%)]
